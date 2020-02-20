@@ -32,6 +32,10 @@ are to hold on to.
 For each flight, it must also be possible to record the actual take-off and landing time in order to be able 
 to make evaluations of the punctuality of individual flights.
 
-ERM
+#### Own ERM
 
-![own ERM](20200220_111046.jpg)
+![Own ERM](20200220_111046.jpg)
+
+#### Group ERM
+
+![Group ERM](WhatsApp Image 2020-02-20 at 13.43.34.jpeg)
