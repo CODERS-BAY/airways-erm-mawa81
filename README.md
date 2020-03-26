@@ -32,10 +32,22 @@ are to hold on to.
 For each flight, it must also be possible to record the actual take-off and landing time in order to be able 
 to make evaluations of the punctuality of individual flights.
 
+### first solution
+
 #### Own ERM
 
 ![Own ERM](20200220_111046.jpg)
 
 #### Group ERM
 
-![Group ERM](WhatsApp Image 2020-02-20 at 13.43.34.jpeg)
+![Group ERM](airways_all.jfif)
+
+### second solution
+
+#### ERM
+
+
+#### textual notation
+
+
+#### SQL Schema
