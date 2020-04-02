@@ -49,5 +49,62 @@ to make evaluations of the punctuality of individual flights.
 
 #### textual notation
 
+passenger( **PNR**:int(8), firstname:varchar(32), lastname:varchar(32), gender:varchar(32), title:varchar(32))
+
+airline( **3digitsCode**:varchar(3), name:varchar(32), headquarters:varchar(32))
+
+aircraft( **aircraftNR**:int(8), *typeID*:int(8), int_registr_nr:int(8), name:varchar(32), entry_into_service:date, range:int(8))
+
+aircraft_type( **typeID**:int(8), manufacturer:varchar(32))
+
+airport( **APID**:varchar(3), name:varchar(32), city:varchar(32), country:varchar(32), capacity_in_aircraft:int(8))
+
+distances_between_airports(*departure_airport*:varchar(3), *arrival_airport*:varchar(3), distance:int(8))
+
+flight( **3digitsCode**:varchar(3),**sequenceNR**:int(3) , *departure_airport*:varchar(3), *destination_airport*:varchar(3))
+
+flightplan(**fp_sequenceNR**:int(8), *3digitsCode*:varchar(3), *sequenceNR*:int(3), departure_time:timestamp, arrival_time:timestamp, delay_departure_time:timestamp 
+delay_arrival_time:timestamp, daily:boolean, daily_except_sat_and_sun:boolean, weekly:boolean, individual_flights:varchar(32), 
+first_class_seats_total:int(8), first_class_seats_reserved:int(8),business_class_seats_total:int(8), business_class_seats_reserved:int(8),
+economy_class_seats_total:int(8), economy_class_seats_reserved:int(8))
+
+ticket( **ticketNR**:int(11), *PNR*:int(8), date_of_issue:date, price:double, currency:varchar(32), *sales_office*:varchar(3))
+
+boarding_card(**3digitsCode**:varchar(3),**sequenceNR**:int(3), flight_date:date,*departure_airport*:varchar(3), *destination_airport*:varchar(3),
+*ticketNR*:int(11), *rowNR*:int(3),*seatDigit*:varchar(1), smoking_license:boolean, location:varchar(32))
+
+seating_arrangement(**typeID**:int(8),**rowNR**:int(3),**seatDigit**:varchar(1), class:varchar(32), location:varchar(32))
+
+
 
 #### SQL Schema
+
+[Link SQL_file](airwaysdb_mario.sql)
+```
+CREATE TABLE passenger( PNR int(8), firstname varchar(32), lastname varchar(32), gender varchar(32), title varchar(32), PRIMARY KEY(PNR));
+
+CREATE TABLE airline( threedigitsCode varchar(3), name varchar(32), headquarters varchar(32), PRIMARY KEY(threedigitsCode));
+
+CREATE TABLE aircraft( aircraftNR int(8), typeID int(8), int_registr_nr int(8), name varchar(32), entry_into_service date, aircraft_range int(8), PRIMARY KEY(aircraftNR));
+ALTER TABLE aircraft ADD FOREIGN KEY (typeID) REFERENCES aircraft_type(typeID) ON DELETE CASCADE
+CREATE TABLE aircraft_type( typeID int(8), manufacturer varchar(32), PRIMARY KEY(typeID));
+
+CREATE TABLE airport( APID varchar(3), name varchar(32), city varchar(32), country varchar(32), capacity_in_aircraft int(8), PRIMARY KEY(APID));
+
+CREATE TABLE distances_between_airports( departure_airport varchar(3), arrival_airport varchar(3), distance int(8), PRIMARY KEY(departure_airport, arrival_airport));
+
+CREATE TABLE flight( threedigitsCode varchar(3), sequenceNR int(3), departure_airport varchar(3), destination_airport varchar(3), PRIMARY KEY(threedigitsCode, sequenceNR));
+
+CREATE TABLE flightplan( fp_sequenceNR int(8), threedigitsCode varchar(3), sequenceNR int(3), departure_time time, arrival_time time, delay_departure_time time, 
+delay_arrival_time time, daily boolean, daily_except_sat_and_sun boolean, weekly boolean, individual_flights varchar(32), 
+first_class_seats_total int(8), first_class_seats_reserved int(8),business_class_seats_total int(8), business_class_seats_reserved int(8),
+economy_class_seats_total int(8), economy_class_seats_reserved int(8), PRIMARY KEY(fp_sequenceNR));
+
+CREATE TABLE ticket( ticketNR int(11), PNR int(8), date_of_issue date, price double, currency varchar(32), sales_office varchar(3), PRIMARY KEY(ticketNR));
+
+CREATE TABLE boarding_card( fp_sequenceNR int(8), threedigitsCode varchar(3), sequenceNR int(3), flight_date date, departure_airport varchar(3), destination_airport varchar(3),
+ ticketNR int(11), rowNR int(3), seatDigit varchar(1), smoking_license boolean, location varchar(32), PRIMARY KEY(fp_sequenceNR, threedigitsCode, sequenceNR));
+
+CREATE TABLE seating_arrangement( typeID int(8), rowNR int(3), seatDigit varchar(1), class varchar(32), location varchar(32), PRIMARY KEY( typeID, rowNR, seatDigit));
+```
+![SQL Schema](airways_mario.jpg)
