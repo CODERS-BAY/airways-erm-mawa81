@@ -46,6 +46,7 @@ to make evaluations of the punctuality of individual flights.
 
 #### ERM
 
+![ERM](airways_ERM.jpg)
 
 #### textual notation
 
